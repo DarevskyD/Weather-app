@@ -4,13 +4,11 @@ const api = {
 }
 
 const searchCity = document.querySelector('.search__city');
-searchCity.addEventListener('keypress', setQuery);
-
-function setQuery(evt) {
+searchCity.addEventListener('keypress', (evt) => {
   if(evt.keyCode == 13) {
     getResults(searchCity.value);   
   }
-}
+});
 
 function getResults(query) {
   fetch(`${api.base}/weather?q=${query}&units=metric&appid=${api.key}`)
@@ -19,8 +17,8 @@ function getResults(query) {
   }).then(displayResults);
 }
 
-function displayResults(weather) {
-  console.log(weather)
+function displayResults(weather) { 
+  console.log(weather);
   let city = document.querySelector('.location .location__city');
   city.innerText = `${weather.name}, ${weather.sys.country}`;
 
@@ -36,16 +34,19 @@ function displayResults(weather) {
 
   let weatherNow = document.querySelector('.weather__now');
   weatherNow.innerText = `${weather.weather[0].main}`;
+
+  let weatherWind = document.querySelector('.weather__wind');
+  weatherWind.innerText = `Wind speed: ${Math.round(weather.wind.speed)}m/s`;
 }
 
 function dateBuild(n) {
   let days = ['Sunday', 'Monday', 'Tuesday', 'Wednesday', 'Thursday', 'Friday', 'Saturday'];
-  let months = ['January', 'February', 'March', 'April', 'May', 'June', 'July', 'August', 'September', 'October', 'November', 'Desember'];
+  let months = ['January', 'February', 'March', 'April', 'May', 'June', 'July', 'August', 'September', 'October', 'November', 'December'];
 
   let day = days[n.getDay()];
   let date = n.getDate();
   let month = months[n.getMonth()];
   let year = n.getFullYear();
 
-  return `${day} ${date} ${month} ${year}`;
+  return `${day} ${date} - ${month} ${year}`;
 }
