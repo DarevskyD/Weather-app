@@ -17,8 +17,7 @@ function getResults(query) {
   }).then(displayResults);
 }
 
-function displayResults(weather) { 
-  console.log(weather);
+function displayResults(weather) {   
   let city = document.querySelector('.location .location__city');
   city.innerText = `${weather.name}, ${weather.sys.country}`;
 
